@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1887f415-8412-4228-9b53-41f8b7930dc0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/layer_resolvers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lenet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/activation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/dense.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/host.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/kernel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/pool.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1YDn8JBPI3MMPcisHnW7nHrtrFV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Research\keras_to_aocl\template" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1887f415-8412-4228-9b53-41f8b7930dc0" name="Default Changelist" comment="" />
+      <created>1582485871532</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582485871532</updated>
+      <workItem from="1582485876298" duration="8729000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1217" y="434" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1582489414174">
+      <screen x="-1920" y="0" width="1920" height="1160" />
+    </state>
+    <state x="-1217" y="434" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824/-1920.0.1920.1160@-1920.0.1920.1160" timestamp="1582489414174" />
+    <state x="-1297" y="255" width="672" height="678" key="search.everywhere.popup" timestamp="1582492575193">
+      <screen x="-1920" y="0" width="1920" height="1160" />
+    </state>
+    <state x="-1297" y="255" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.0.1920.1160@-1920.0.1920.1160" timestamp="1582492575193" />
+  </component>
+</project>
