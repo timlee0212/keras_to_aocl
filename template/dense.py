@@ -4,13 +4,12 @@ from . import host
 
 class dense(kernel.kernels):
     def __init__(self, input, output, name, weight_name, bias_name):
-        super(self, dense).__init__()
         if not isinstance(input, host.buffer) or not isinstance(output, host.buffer):
             print("Input or Output must be a buffer object!")
             return
         self.name = name
         self.input = input
-        self.ouput = output
+        self.output = output
         self.weight_name = weight_name
         self.bias_name = bias_name
 
@@ -57,12 +56,12 @@ class dense(kernel.kernels):
         return s
 
     def write_release(self):
-        s = host.release_buffer.substitute(kernel_var=self.name)
+        s = host.release_kernel.substitute(kernel_var=self.name)
         return s
 
     def write_enque(self):
         # TODO: Depends on the implementation to decide whether need NDRange or Naive Task
-        s = "cl_uint gl_size_" + self.name + " = 128\n"
+        s = "cl_uint gl_size_" + self.name + " = 128;\n"
         s += host.enque_ndrange.substitute(kernel_var=self.name, gl_size="gl_size_" + self.name, local_size="NULL")
         return s
 

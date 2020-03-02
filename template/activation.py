@@ -3,7 +3,6 @@ from . import host
 
 class activation(kernel.kernels):
     def __init__(self, input, output, name, type='relu', params=None):
-        super(self, activation).__init__()
         if type not in ['relu', 'elu','sigmoid', 'tanh', 'leakyrelu', 'thresrelu', 'softmax']:
             print(type, " is not supported by current framework.")
             return
@@ -14,7 +13,7 @@ class activation(kernel.kernels):
         self.type = type
         self.params = params
         self.input = input
-        self.ouput = output
+        self.output = output
 
 
     def write_ip(self):
@@ -117,11 +116,11 @@ class activation(kernel.kernels):
 
 
     def write_release(self):
-        s = host.release_buffer.substitute(kernel_var = self.name)
+        s = host.release_kernel.substitute(kernel_var = self.name)
         return s
 
     def write_enque(self):
         # TODO: Depends on the implementation to decide whether need NDRange or Naive Task
-        s = "cl_uint gl_size_" + self.name + " = 128\n"
+        s = "cl_uint gl_size_" + self.name + " = 128;\n"
         s += host.enque_ndrange.substitute(kernel_var=self.name, gl_size="gl_size_"+ self.name, local_size= "NULL")
         return s

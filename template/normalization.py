@@ -4,13 +4,12 @@ from . import host
 
 class batch_norm(kernel.kernels):
     def __init__(self, input, output, name, par_a_name, par_b_name):
-        super(self, dense).__init__()
         if not isinstance(input, host.buffer) or not isinstance(output, host.buffer):
             print("Input or Output must be a buffer object!")
             return
         self.name = name
         self.input = input
-        self.ouput = output
+        self.output = output
         self.par_a_name = par_a_name
         self.par_b_name = par_b_name
 
@@ -88,7 +87,7 @@ class batch_norm(kernel.kernels):
         return s
 
     def write_release(self):
-        s = host.release_buffer.substitute(kernel_var=self.name)
+        s = host.release_kernel.substitute(kernel_var=self.name)
         return s
 
     def write_enque(self):

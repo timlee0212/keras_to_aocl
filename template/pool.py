@@ -4,13 +4,12 @@ from . import host
 
 class pool(kernel.kernels):
     def __init__(self, input, output, name, params, type='max'):
-        super(self, pool).__init__()
         if not isinstance(input, host.buffer) or not isinstance(output, host.buffer):
             print("Input or Output must be a buffer object!")
             return
         self.name = name
         self.input = input
-        self.ouput = output
+        self.output = output
         self.type = type
         self.params = params
     def write_ip(self):
@@ -73,7 +72,7 @@ class pool(kernel.kernels):
 
     def write_setargs(self):
         s = host.set_arg_template.substitute(kernel_var=self.name, arg_idx=0, DTYPE="cl_mem", var="&" + self.input.name) + '\n'
-        s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=1, DTYPE="cl_mem", var="&" + self.weight_name) + '\n'
+        s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=1, DTYPE="cl_mem", var="&" + self.output.name) + '\n'
         s += "cl_uint param_" + self.name + "[6] = {%d, %d, %d, %d, %d, %d}\n" % (self.params[0], self.params[1],
                                                                                   self.params[2], self.params[3],
                                                                                   self.params[4], self.params[5]) +";\n"
@@ -83,7 +82,7 @@ class pool(kernel.kernels):
         return s
 
     def write_release(self):
-        s = host.release_buffer.substitute(kernel_var=self.name)
+        s = host.release_kernel.substitute(kernel_var=self.name)
         return s
 
     def write_enque(self):

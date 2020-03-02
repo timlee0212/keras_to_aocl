@@ -125,27 +125,26 @@ end_template = """
 
 ##================== End Software Template ========================
 
-class buffer():
+class buffer:
 	def __init__(self, size, name, mode='rw', dtype="float"):
 		if dtype not in ['double', "float", "int", "uint", "short", "ushort", "char"]:
 			print("No a valid dtype!")
 		self.dtype = dtype
 		self.name = name
-		self.size = np.array(size)
+		self.size = size
 		self.mode = mode
 
-		if len(self.size) > 1:
+		if not isinstance(self.size, int):
 			self.size = np.prod(self.size)
-		self.size = self.size[0]
 
 	def write_create(self):
 		s = "cl_mem "
 		if self.mode=='r':
-			s += buffer_reado_template.substitute(buf_name = self.name, bufsize=self.size, DTYPE=self.dtype)
+			s += buffer_reado_template.substitute(buf_name = self.name, buf_size=self.size, DTYPE=self.dtype)
 		elif self.mode=='w':
-			s += buffer_writeo_template.substitute(buf_name=self.name, bufsize=self.size, DTYPE=self.dtype)
+			s += buffer_writeo_template.substitute(buf_name=self.name, buf_size=self.size, DTYPE=self.dtype)
 		else:
-			s += buffer_rw_template.substitute(buf_name = self.name, bufsize=self.size, DTYPE=self.dtype)
+			s += buffer_rw_template.substitute(buf_name = self.name, buf_size=self.size, DTYPE=self.dtype)
 
 		return s
 

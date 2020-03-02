@@ -5,13 +5,12 @@ from . import host
 class conv1D(kernel.kernels):
     def __init__(self, input, output, name, weight_name, bias_name,
                  stride, padding, num_filter, filter_size):
-        super(self, conv1D).__init__()
         if not isinstance(input, host.buffer) or not isinstance(output, host.buffer):
             print("Input or Output must be a buffer object!")
             return
         self.name = name
         self.input = input
-        self.ouput = output
+        self.output = output
         self.weight_name = weight_name
         self.bias_name = bias_name
         self.stride = stride
@@ -116,13 +115,12 @@ class conv1D(kernel.kernels):
 class conv2D(kernel.kernels):
     def __init__(self, input, output, name, weight_name, bias_name,
                  stride, padding, num_filter, filter_size, img_size, input_channels, output_size):
-        super(self, conv2D).__init__()
         if not isinstance(input, host.buffer) or not isinstance(output, host.buffer):
             print("Input or Output must be a buffer object!")
             return
         self.name = name
         self.input = input
-        self.ouput = output
+        self.output = output
         self.weight_name = weight_name
         self.bias_name = bias_name
         self.stride = stride
@@ -220,7 +218,7 @@ class conv2D(kernel.kernels):
                                               var="&" + self.bias_name) + '\n'
         s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=3, DTYPE="cl_mem",
                                               var="&" + self.output.name) + '\n'
-        s += "cl_short param_" + self.name + "_1 = %d;\n" % (self.stride)
+        s += "cl_short param_" + self.name + "_1 = %d;\n" % (self.stride[0])
         s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=4, DTYPE="cl_short",
                                               var="&" + "param_" + self.name + "_1") + "\n"
         s += "cl_short param_" + self.name + "_2 = %d;\n" % (self.padding)
@@ -245,12 +243,12 @@ class conv2D(kernel.kernels):
         return s
 
     def write_release(self):
-        s = host.release_buffer.substitute(kernel_var=self.name)
+        s = host.release_kernel.substitute(kernel_var=self.name)
         return s
 
     def write_enque(self):
         # TODO: Depends on the implementation to decide whether need NDRange or Naive Task
-        s = "cl_uint gl_size_" + self.name + " = {256, 256}\n"
+        s = "cl_uint gl_size_" + self.name + " = {256, 256};\n"
         s += host.enque_ndrange.substitute(kernel_var=self.name, gl_size="gl_size_" + self.name, local_size="NULL")
         return s
 

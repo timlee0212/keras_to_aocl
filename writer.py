@@ -26,30 +26,31 @@ def write_host(host_c_name, weight_file_name, weight_dict, layers_list):
     for key, value in weight_dict.items():
         weight_buf = template.host.buffer(value.shape, key, mode='r')
         weights.append(weight_buf)
-        f.write(weight_buf.write_create())
-        f.write(weight_buf.write_bufwrite(key))
+        f.write(weight_buf.write_create()+"\n")
+        f.write(weight_buf.write_bufwrite(key)+"\n")
 
     f.write(layers_list[0].input.write_create())
     #Initilize Buffers
     for layer in layers_list:
-        f.write(layer.output.write_create())
+        f.write(layer.output.write_create() + "\n")
 
     #Initilize Kernels
     for layer in layers_list:
-        f.write(layer.write_create())
+        f.write(layer.write_create()+"\n")
 
+    f.write("//============Write the Code That Deal with the input================\n\n\n")
     #Execute Kernels
     for layer in layers_list:
-        f.write(layer.write_setargs())
-        f.write(layer.write_enque())
+        f.write(layer.write_setargs()+"\n")
+        f.write(layer.write_enque()+"\n")
 
-
+    f.write("//============Write the Code That Deal with the output================\n\n\n")
     #Ending
-    f.write(layers_list[0].input.write_release())
+    f.write(layers_list[0].input.write_release()+"\n")
     for layer in layers_list:
-        f.write(layer.output.write_release())
+        f.write(layer.output.write_release()+"\n")
     for weight in weights:
-        f.write(weight.write_release())
+        f.write(weight.write_release()+"\n")
     for layer in layers_list:
-        f.write(layer.write_release())
+        f.write(layer.write_release()+"\n")
     f.write(template.host.end_template)

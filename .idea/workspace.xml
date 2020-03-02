@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1887f415-8412-4228-9b53-41f8b7930dc0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/converter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/template/normalization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/writer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layer_resolvers.py" beforeDir="false" afterPath="$PROJECT_DIR$/layer_resolvers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/activation.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/activation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/conv.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/conv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/dense.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/dense.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/host.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/host.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/normalization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/pool.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/pool.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/writer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +58,7 @@
       <workItem from="1583083402459" duration="4101000" />
       <workItem from="1583093805146" duration="883000" />
       <workItem from="1583116866628" duration="2645000" />
-      <workItem from="1583158857489" duration="9706000" />
+      <workItem from="1583158857489" duration="11667000" />
     </task>
     <servers />
   </component>
@@ -68,10 +70,10 @@
       <screen x="-1920" y="0" width="1920" height="1160" />
     </state>
     <state x="-1217" y="434" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824/-1920.0.1920.1160@-1920.0.1920.1160" timestamp="1582489414174" />
-    <state x="-1168" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583097517572">
+    <state x="-1168" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583183198062">
       <screen x="-1920" y="0" width="1920" height="1160" />
     </state>
-    <state x="-1168" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1160@-1920.0.1920.1160" timestamp="1583097517572" />
+    <state x="-1168" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/-1920.0.1920.1160@-1920.0.1920.1160" timestamp="1583183198062" />
     <state x="-1297" y="255" width="672" height="678" key="search.everywhere.popup" timestamp="1583173393633">
       <screen x="-1920" y="0" width="1920" height="1160" />
     </state>
