@@ -59,12 +59,11 @@ class activation(kernel.kernels):
         elif self.type == 'leakyrelu':
             s = """ __kernel void leakyrelu(__global float *input, 
                         __global float *output,
-						__constant float *threshold,
 						__constant float *alpha)
                  {
                      const int x = get_global_id(0);
                 
-                     if (input[x] > threshold[0])
+                     if (input[x] > 0)
                          output[x] = input[x];
                      else
                          output[x] = alpha[0] * input[x];
