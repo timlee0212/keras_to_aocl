@@ -10,7 +10,7 @@ class activation(kernel.kernels):
         if not isinstance(input, host.buffer) or not isinstance(output, host.buffer):
             print("Input or Output must be a buffer object!")
             return
-
+        self.name = name
         self.type = type
         self.params = params
         self.input = input
