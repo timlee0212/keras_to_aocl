@@ -4,7 +4,7 @@ from . import host
 
 class conv1D(kernel.kernels):
     def __init__(self, input, output, name, weight_name, bias_name,
-                 stride, padding, num_filter, filter_size, seq_size, input_steps, output_size):
+                 stride, padding, num_filter, filter_size):
         super(self, conv1D).__init__()
         if not isinstance(input, host.buffer) or not isinstance(output, host.buffer):
             print("Input or Output must be a buffer object!")
@@ -18,8 +18,6 @@ class conv1D(kernel.kernels):
         self.padding = padding,
         self.num_filter = num_filter
         self.filter_size = filter_size
-        self.input_steps = input_steps
-
     def write_ip(self):
         s = """
             #define ADDR(channel, row, col)			channel * (img_size * img_size) + row * img_size + col
@@ -34,8 +32,7 @@ class conv1D(kernel.kernels):
                 __global float* restrict output_result,
                 const short stride, const short padding, /*0 - No Padding, 1 - Zero Padding*/ 
                 const short num_filter, const short filter_size,
-                const int seq_size, const short input_steps,
-                const int output_size
+                const int seq_size, const int output_size
             )
             {
                 //Input Shape is:	Channels x Lengths
@@ -99,11 +96,8 @@ class conv1D(kernel.kernels):
         s += "cl_int param_" + self.name + "_5 = %d;\n" % (self.input.size)
         s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=8, DTYPE="cl_int",
                                               var="&" + "param_" + self.name + "_5") + "\n"
-        s += "cl_short param_" + self.name + "_6 = %d;\n" % (self.input_steps)
-        s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=9, DTYPE="cl_short",
-                                              var="&" + "param_" + self.name + "_i") + "\n"
-        s += "cl_int param_" + self.name + "_7 = %d;\n" % (self.output.size)
-        s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=10, DTYPE="cl_int",
+        s += "cl_int param_" + self.name + "_6 = %d;\n" % (self.output.size)
+        s += host.set_arg_template.substitute(kernel_var=self.name, arg_idx=9, DTYPE="cl_int",
                                               var="&" + "param_" + self.name + "_o") + "\n"
 
         return s

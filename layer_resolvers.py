@@ -23,10 +23,17 @@ def resolve_model(model):
             layers_list = _add_act(layer, layers_list, layer_id)
 
         elif isinstance(layer, layers.pooling):
-            layers_list = _add_pool()
+            layers_list = _add_pool(layer, layers_list,layer_id)
 
         elif isinstance(layer, layers.convolutional):
-            weight_dict, layers_list = _add_conv()
+            weight_dict, layers_list = _add_conv(layer, weight_dict, layers_list, layer_id)
+
+        elif isinstance(layer, layers.BatchNormalization):
+            weight_dict, layers_list = _add_bn(layer, weight_dict, layers_list, layer_id)
+
+        else:
+            print("%s Layer are not supported yet." % layer.name)
+
 
         ip = layers_list[-1].write_ip()
         if ip not in ip_list:
@@ -34,9 +41,11 @@ def resolve_model(model):
 
         layer_id += 1
 
+    return weight_dict, layers_list, ip_list
+
 def _add_dense(layer, weight_dict, layers_list, layer_id):
-    weight_dict["fc_%d_weight" % layer_id] = layer.get_weights()[0];
-    weight_dict["fc_%d_bias" % layer_id] = layer.get_weights()[1];
+    weight_dict["fc_%d_weight" % layer_id] = layer.get_weights()[0]
+    weight_dict["fc_%d_bias" % layer_id] = layer.get_weights()[1]
     if len(layers_list) == 0:  # The first Layer
         input_buf = template.host.buffer(layer.get_input_shape_at(0)[1], "fc_%d_in" % layer_id)
     else:
@@ -48,22 +57,51 @@ def _add_dense(layer, weight_dict, layers_list, layer_id):
 
     return weight_dict, layers_list
 
+def _add_bn(layer, weight_dict, layers_list, layer_id):
+    gamma = layer.get_weights()[0]
+    beta = layer.get_weights()[1]
+    moving_mean = layer.get_weights()[2]
+    moving_var = layer.get_weights()[3]
+
+    par_a = gamma / np.sqrt(moving_var ** 2 + layer.epsilon)
+    par_b = moving_mean / np.sqrt(moving_var ** 2 + layer.epsilon) + beta
+
+    weight_dict["bn_%d_par_a" % layer_id] = par_a
+    weight_dict["bn_%d_par_b" % layer_id] = par_b
+
+    input_buf = layers_list[-1].output
+    output_buf = template.host.buffer(layer.get_output_shape_at(0)[1], "bn_%d_out" % layer_id)
+
+    layers_list.append(template.normalization.batch_norm(input_buf, output_buf,
+                                            "bn_%d" % layer_id, "bn_%d_par_a" % layer_id, "bn_%d_par_b" % layer_id))
+
+    return weight_dict, layers_list
+
 def _add_conv(layer, weight_dict, layers_list, layer_id):
-    weight_dict["conv_%d_weight" % layer_id] = layer.get_weights()[0];
-    weight_dict["conv_%d_bias" % layer_id] = layer.get_weights()[1];
+    weight_dict["conv_%d_weight" % layer_id] = layer.get_weights()[0]
+    weight_dict["conv_%d_bias" % layer_id] = layer.get_weights()[1]
     if len(layers_list) == 0:  # The first Layer
-        input_buf = template.host.buffer(layer.get_input_shape_at(0)[1], "conv_%d_in" % layer_id)
+        input_buf = template.host.buffer(layer.get_input_shape_at(0)[1:], "conv_%d_in" % layer_id)
     else:
         input_buf = layers_list[-1].output
-    output_buf = template.host.buffer(layer.get_output_shape_at(0)[1], "conv_%d_out" % layer_id)
+    output_buf = template.host.buffer(layer.get_output_shape_at(0)[1:], "conv_%d_out" % layer_id)
+
+    conf = layer.get_config()
 
     if isinstance(layer, layers.Conv2D):
         layers_list.append(template.conv.conv2D(input_buf, output_buf,
-                                            "conv_%d" % layer_id, "conv_%d_weight" % layer_id, "conv_%d_bias" % layer_id))
+                                            "conv_%d" % layer_id, "conv_%d_weight" % layer_id, "conv_%d_bias" % layer_id,
+                                                stride=conf['strides'], padding = 1 if conf['padding']=='valid' else 0,
+                                                num_filter=layer.get_weights()[0].shapep[4], filter_size=layer.get_weights()[0].shape[0],
+                                                img_size=conf['batch_input_shape'][1], input_channels=conf['batch_input_shape'][3],
+                                                output_size=layer.get_output_shape_at(0)[1]))
     elif isinstance(layer, layers.Conv1D):
         layers_list.append(template.conv.conv1D(input_buf, output_buf,
                                                 "conv_%d" % layer_id, "conv_%d_weight" % layer_id,
-                                                "conv_%d_bias" % layer_id))
+                                                "conv_%d_bias" % layer_id,
+                                                stride=conf['strides'], padding=1 if conf['padding'] == 'valid' else 0,
+                                                num_filter=layer.get_weights()[0].shapep[4],
+                                                filter_size=layer.get_weights()[0].shape[0]))
     else:
         print("Not a supported conv operation.")
 

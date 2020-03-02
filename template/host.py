@@ -8,6 +8,7 @@ import numpy as np
 ##================ Software Template ==============================
 
 file_header = \
+Template(
 """
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,6 +17,7 @@ file_header = \
 
 #include <iostream>
 #include <fstream>
+#include "${weight_file}"
 
 #include <CL/cl.h>
 
@@ -84,7 +86,7 @@ int main(int argc, char *argv[])
 	program = createProgramFromFile(context, (const char *) kernel_file_name, device, num_devices);
 	
 	queue = clCreateCommandQueue(context, device[0], CL_QUEUE_PROFILING_ENABLE, &status);
-"""
+""")
 
 ####### Create Kernels
 kernel_template = Template("${kernel_var} = clCreateKernel(program, ${kernel_name}, &status);")
