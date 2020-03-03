@@ -11,7 +11,7 @@ def write_ip(ip_file_name, ip_list):
 def write_weight(weight_file_name, weight_dict):
     f = open(weight_file_name, 'w')
     for key, value in weight_dict.items():
-        f.write(key+"={")
+        f.write("float " + key+"={")
         w = value.flatten()
         for val in w:
             f.write(str(val)+",")

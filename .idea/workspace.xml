@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1887f415-8412-4228-9b53-41f8b7930dc0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layer_resolvers.py" beforeDir="false" afterPath="$PROJECT_DIR$/layer_resolvers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/activation.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/activation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/conv.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/conv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/dense.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/dense.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/host.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/host.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/normalization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/pool.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/pool.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/writer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +50,8 @@
       <workItem from="1583083402459" duration="4101000" />
       <workItem from="1583093805146" duration="883000" />
       <workItem from="1583116866628" duration="2645000" />
-      <workItem from="1583158857489" duration="11667000" />
+      <workItem from="1583158857489" duration="11793000" />
+      <workItem from="1583185053197" duration="6000" />
     </task>
     <servers />
   </component>
